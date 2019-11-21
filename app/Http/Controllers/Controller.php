@@ -56,4 +56,16 @@ class Controller extends BaseController
     {
         return $this->responseSuccess('', $data, $status, $headers);
     }
+
+    /**
+     * Return a new JSON response from the application.
+     *
+     * @param array $data Data
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function responseCreate($data = [])
+    {
+        return $this->responseSuccess('', $data, Response::HTTP_CREATED);
+    }
 }

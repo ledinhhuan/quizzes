@@ -15,7 +15,8 @@ class CreateTopicsTable extends Migration
     {
         Schema::create('topics', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title')->nullable();
+            $table->string('title');
+            $table->string('slug');
             $table->tinyInteger('status')->default(\App\Models\Topic::IS_ENABLED);
             $table->timestamps();
             $table->softDeletes();

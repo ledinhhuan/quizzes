@@ -16,10 +16,14 @@ class CreateTestAnswersTable extends Migration
         Schema::create('test_answers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('test_id');
+            $table->foreign('test_id')->references('id')->on('tests');
             $table->unsignedBigInteger('question_id');
+            $table->foreign('question_id')->references('id')->on('questions');
             $table->tinyInteger('correct')->nullable()->default(0);
             $table->unsignedBigInteger('answer_id');
+            $table->foreign('answer_id')->references('id')->on('answers');
             $table->timestamps();
             $table->softDeletes();
         });

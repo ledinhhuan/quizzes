@@ -9,7 +9,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  *
  * @package namespace App\Repositories\Interfaces;
  */
-interface ArticleRepository extends RepositoryInterface
+interface QuestionRepository extends RepositoryInterface
 {
-    //
+    public function randomOrder(array $where);
 }

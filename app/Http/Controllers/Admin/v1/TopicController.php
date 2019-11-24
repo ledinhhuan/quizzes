@@ -12,11 +12,17 @@ class TopicController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        //
+        try {
+            $data = Topic::query()->withCount('questions')->get();
+            return $this->responseSuccessNoMess($data);
+        } catch (\Exception $ex) {
+            \Log::error($ex);
+            return $this->responseError($ex);
+        }
     }
 
     /**
@@ -39,8 +45,9 @@ class TopicController extends Controller
         try {
             $data = $request->only(['title']);
             $topic = Topic::create($data);
-            return $this->responseSuccess($topic);
+            return $this->responseCreate($topic);
         } catch (\Exception $ex) {
+            \Log::error($ex);
             return $this->responseError($ex);
         }
     }

@@ -23,10 +23,10 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->bind(\App\Repositories\Interfaces\ArticleRepository::class, \App\Repositories\Eloquents\ArticleRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\Interfaces\UserRepository::class, \App\Repositories\Eloquents\UserRepositoryEloquent::class);
-        $this->app->bind(\App\Repositories\Interfaces\CategoryRepository::class, \App\Repositories\Eloquents\CategoryRepositoryEloquent::class);
-        $this->app->bind(\App\Repositories\Interfaces\ImageRepository::class, \App\Repositories\Eloquents\ImageRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\Interfaces\AnswerRepository::class, \App\Repositories\Eloquents\AnswerRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\Interfaces\QuestionRepository::class, \App\Repositories\Eloquents\QuestionRepositoryEloquent::class);
+
         //:end-bindings:
     }
 }

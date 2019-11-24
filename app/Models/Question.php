@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Question extends Model
 {
+    const NUM_OF_QUESTION = 10;
+
     use SoftDeletes;
 
     protected $fillable = [

@@ -16,7 +16,8 @@ class CreateTestsTable extends Migration
         Schema::create('tests', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->text('result')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('result')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -2,17 +2,17 @@
 
 namespace App\Repositories\Eloquents;
 
+use App\Models\Answer;
+use App\Repositories\Interfaces\AnswerRepository;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\Interfaces\CategoryRepository;
-use App\Models\Category;
 
 /**
- * Class CategoryRepositoryEloquent.
+ * Class ArticleRepositoryEloquent.
  *
  * @package namespace App\Repositories\Eloquents;
  */
-class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepository
+class AnswerRepositoryEloquent extends BaseRepository implements AnswerRepository
 {
     /**
      * Specify Model class name
@@ -21,10 +21,10 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
      */
     public function model()
     {
-        return Category::class;
+        return Answer::class;
     }
 
-    
+
 
     /**
      * Boot up the repository, pushing criteria
@@ -33,5 +33,5 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
 }

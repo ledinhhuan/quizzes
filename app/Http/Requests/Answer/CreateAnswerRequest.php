@@ -14,7 +14,7 @@ class CreateAnswerRequest extends Request
     public function rules()
     {
         return [
-            'option.*' => 'required',
+            'option.*' => 'distinct|required',
             'correct' => 'distinct|required|numeric|min:1|max:4',
             'question_id' => 'exists:questions,id'
         ];

@@ -9,11 +9,6 @@ use App\Http\Controllers\Controller;
 
 class TopicController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function index()
     {
         try {

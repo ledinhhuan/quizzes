@@ -9,6 +9,32 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * @OA\Info(
+ *     description="Quizzes API",
+ *     version="1.0.0",
+ *     title="Demo Quizzes",
+ *     @OA\Contact(
+ *         email="huan.ld@neo-lab.vn"
+ *     )
+ * )
+ */
+/**
+ * @OA\Server(
+ *     description="Quizzes API",
+ *     url=L5_SWAGGER_CONST_HOST
+ * )
+ */
+/**
+ * @OA\SecurityScheme(
+ *    securityScheme="bearerAuth",
+ *    type="http",
+ *    scheme="bearer",
+ *    bearerFormat="JWT"
+ *),
+ * )
+ */
+
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;

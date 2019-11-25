@@ -28,6 +28,58 @@ class UserController extends Controller
     }
 
 
+    /**
+     * @OA\Post(
+     *     path="/api/users/signup",
+     *     tags={"signup"},
+     *     operationId="doSignup",
+     *     summary="Signup User",
+     *     @OA\Parameter(
+     *         name="name",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="email",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="password",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="password_confirmation",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=405,
+     *         description="Invalid input",
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Signup Successfully",
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request"
+     *     )
+     * )
+     */
     public function signUp(CreateUserRequest $request)
     {
         try {

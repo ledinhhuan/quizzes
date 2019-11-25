@@ -10,11 +10,123 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8000",
+            "url": "http://localhost:9000",
             "description": "Quizzes API"
         }
     ],
     "paths": {
+        "/api/admin/topics": {
+            "get": {
+                "tags": [
+                    "viewTopics"
+                ],
+                "summary": "List Topics Admin",
+                "operationId": "viewTopics",
+                "responses": {
+                    "401": {
+                        "description": "Token not provided"
+                    },
+                    "200": {
+                        "description": "List Topics Successfully"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "doTopic"
+                ],
+                "summary": "Create Topics Admin",
+                "operationId": "doTopic",
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Token not provided"
+                    },
+                    "200": {
+                        "description": "Create Topic Successfully"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/signup": {
+            "post": {
+                "tags": [
+                    "signup"
+                ],
+                "summary": "Signup User",
+                "operationId": "doSignup",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    },
+                    "200": {
+                        "description": "Signup Successfully"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
         "/api/users/login": {
             "post": {
                 "tags": [

@@ -9,6 +9,27 @@ use App\Http\Controllers\Controller;
 
 class TopicController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/api/admin/topics",
+     *     tags={"viewTopics"},
+     *     operationId="viewTopics",
+     *     summary="List Topics Admin",
+     *   security={{"bearerAuth": {}}},
+     *     @OA\Response(
+     *         response=401,
+     *         description="Token not provided",
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="List Topics Successfully",
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request"
+     *     )
+     * )
+     */
     public function index()
     {
         try {
@@ -30,10 +51,33 @@ class TopicController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @OA\Post(
+     *     path="/api/admin/topics",
+     *     tags={"doTopic"},
+     *     operationId="doTopic",
+     *     summary="Create Topics Admin",
+     *   security={{"bearerAuth": {}}},
+     *     @OA\Parameter(
+     *         name="title",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Token not provided",
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Create Topic Successfully",
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request"
+     *     )
+     * )
      */
     public function store(CreateRequest $request)
     {

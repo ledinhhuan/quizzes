@@ -11,4 +11,5 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface TestAnswerRepository extends RepositoryInterface
 {
+    public function insertMany(array $attribute);
 }

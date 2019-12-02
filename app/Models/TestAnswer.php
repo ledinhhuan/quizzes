@@ -9,7 +9,7 @@ class TestAnswer extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['user_id', 'test_id', 'question_id', 'option_id', 'correct'];
+    protected $fillable = ['test_id', 'question_id', 'option_id'];
 
     public function question()
     {

@@ -52,7 +52,7 @@ class QuestionController extends Controller
         if (isset($answers)) {
             $data = [];
             foreach ($answers as $key => $answer) {
-                $isCorrect = (int) $answerRequest->input('correct') === ($key + 1) ? 1 : 0;
+                $isCorrect = count($answers) <= (int) $answerRequest->input('correct') && (int) $answerRequest->input('correct') === ($key + 1) ? 1 : 0;
                 $data[] = [
                     'question_id' => $question->id,
                     'option' => $answer,

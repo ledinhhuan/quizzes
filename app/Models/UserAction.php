@@ -15,4 +15,11 @@ class UserAction extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function setUserIdAttribute($input)
+    {
+        if ($input != null) {
+            $this->attributes['user_id'] = $input;
+        }
+    }
 }

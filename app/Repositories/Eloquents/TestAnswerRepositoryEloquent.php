@@ -33,4 +33,11 @@ class TestAnswerRepositoryEloquent extends BaseRepository implements TestAnswerR
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+
+    public function insertMany(array $attribute)
+    {
+        $model = $this->model::query()->insert($attribute);
+
+        return $this->parserResult($model);
+    }
 }

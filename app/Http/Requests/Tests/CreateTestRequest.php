@@ -14,6 +14,7 @@ class CreateTestRequest extends Request
     public function rules()
     {
         return [
+            'topic_id' => 'required|exists:topics,id',
             'questions.*' => 'required',
             'answers.*' => 'required'
         ];

@@ -10,7 +10,7 @@ class Test extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['user_id', 'result'];
+    protected $fillable = ['user_id', 'result', 'topic_id'];
 
     public function user()
     {

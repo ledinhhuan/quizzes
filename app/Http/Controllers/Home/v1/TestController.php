@@ -11,6 +11,7 @@ use App\Repositories\Interfaces\AnswerRepository;
 use App\Repositories\Interfaces\QuestionRepository;
 use App\Repositories\Interfaces\TestAnswerRepository;
 use App\Repositories\Interfaces\TestRepository;
+use App\Services\ChartService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,16 +22,19 @@ class TestController extends Controller
     protected $answerRepository;
     protected $testAnswerRepository;
     protected $testRepository;
+    protected $chartService;
 
     public function __construct(QuestionRepository $questionRepository,
                                 AnswerRepository $answerRepository,
                                 TestAnswerRepository $testAnswerRepository,
-                                TestRepository $testRepository)
+                                TestRepository $testRepository,
+                                ChartService $chartService)
     {
         $this->questionRepository = $questionRepository;
         $this->answerRepository = $answerRepository;
         $this->testAnswerRepository = $testAnswerRepository;
         $this->testRepository = $testRepository;
+        $this->chartService = $chartService;
     }
 
     public function showQuizz ($id) {
@@ -60,8 +64,9 @@ class TestController extends Controller
                 }
             }
             $test = $this->testRepository->create([
-               'user_id' => \Auth::id(),
-               'result' => 0
+                'user_id' => \Auth::id(),
+                'topic_id' => $request->get('topic_id'),
+                'result' => 0
             ]);
             $this->testAnswerRepository->insertMany(Test::dataQuestions($request, $questions, $test));
 
@@ -76,10 +81,33 @@ class TestController extends Controller
             \DB::commit();
             return $this->responseSuccess('test.message.success_quizz');
         } catch (\Exception $ex) {
-            dd($ex->getMessage());
+            dd($ex);
             \DB::rollBack();
             \Log::error($ex);
             return $this->responseError('test.message.quizz_error', []);
+        }
+    }
+
+    public function showResult ($id)
+    {
+        try {
+            $test = $this->testRepository->find($id);
+            $results = $this->testAnswerRepository->with('question')
+                ->with('question.answers')
+                ->findWhere(['test_id' => $test->id]);
+
+            $chart = \DB::table('tests')
+                ->select('result')
+                ->where(['topic_id' => $test->topic_id])
+                ->groupBy('id')
+                ->pluck('result');
+
+            $partition = $this->chartService->partitionLevel($chart);
+            $calculateChart = $this->chartService->calculateLevel($partition, $chart);
+            $data = ['chart' => $calculateChart, 'results' => $results];
+            return $this->responseSuccessNoMess($data);
+        } catch (ModelNotFoundException $ex) {
+            return $this->responseError('test.message.result_not_found', [], 404);
         }
     }
 }

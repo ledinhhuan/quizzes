@@ -17,6 +17,8 @@ class CreateTestsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('topic_id');
+            $table->foreign('topic_id')->references('id')->on('topics');
             $table->tinyInteger('result')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -32,14 +32,105 @@ class QuestionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param CreateQuestionRequest $request
-     * @param CreateAnswerRequest $answerRequest
-     * @return \Illuminate\Http\JsonResponse
+     * @OA\Post(
+     *     path="/api/admin/questions",
+     *     tags={"storeQuestions"},
+     *     operationId="storeQuestions",
+     *     summary="Add Question Admin",
+     *   security={{"bearerAuth": {}}},
+     *     @OA\Parameter(
+     *         name="topic_id",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="question_text",
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="code_snippet",
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="answer_explanation",
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="more_info_link",
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="option[0]",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="option[1]",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="option[2]",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="option[3]",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="correct",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Token not provided",
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Created Question Successfully",
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request"
+     *     )
+     * )
      */
     public function store(CreateQuestionRequest $request, CreateAnswerRequest $answerRequest)
     {
+        \DB::beginTransaction();
         try {
             $question = Question::create($request->only([
                 'topic_id',
@@ -52,7 +143,7 @@ class QuestionController extends Controller
         if (isset($answers)) {
             $data = [];
             foreach ($answers as $key => $answer) {
-                $isCorrect = count($answers) <= (int) $answerRequest->input('correct') && (int) $answerRequest->input('correct') === ($key + 1) ? 1 : 0;
+                $isCorrect = count($answers) >= (int) $answerRequest->input('correct') && (int) $answerRequest->input('correct') == ($key + 1) ? 1 : 0;
                 $data[] = [
                     'question_id' => $question->id,
                     'option' => $answer,
@@ -62,10 +153,12 @@ class QuestionController extends Controller
                 ];
             }
             $questionOfAnswers = Answer::query()->insert($data);
+            \DB::commit();
             return $this->responseCreate($questionOfAnswers);
         }
         } catch (\Exception $ex) {
-            return $this->responseError($ex);
+            \DB::rollback();
+            return $this->responseError('question.create_question_error');
         }
     }
 

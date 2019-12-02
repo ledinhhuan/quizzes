@@ -37,6 +37,35 @@ class TestController extends Controller
         $this->chartService = $chartService;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/users/test/{id}",
+     *     tags={""},
+     *     operationId="resultTested",
+     *     summary="Show Exam Quizz",
+     *   security={{"bearerAuth": {}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Token not provided",
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successfully",
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request"
+     *     )
+     * )
+     */
     public function showQuizz ($id) {
         try {
             $topic = Topic::query()->where('id', $id)->where('status', Topic::IS_ENABLED)->first();
@@ -53,6 +82,48 @@ class TestController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/users/tests",
+     *     tags={""},
+     *     operationId="doTest",
+     *     summary="Do Test Exam",
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Parameter(name="topic_id",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="questions[0]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="answers[0]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="questions[1]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="answers[1]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="questions[2]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="answers[2]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="questions[3]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="answers[3]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="questions[4]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="answers[4]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="questions[5]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="answers[5]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="questions[6]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="answers[6]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="questions[7]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="answers[7]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="questions[8]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="answers[8]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="questions[9]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Parameter(name="answers[9]",in="query",required=true,@OA\Schema(type="string")),
+     *     @OA\Response(
+     *         response=405,
+     *         description="Invalid input",
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Login Successfully",
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request"
+     *     )
+     * )
+     */
     public function doQuizz (CreateTestRequest $request)
     {
         \DB::beginTransaction();
@@ -88,6 +159,35 @@ class TestController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/users/results/{id}",
+     *     tags={""},
+     *     operationId="resultTested",
+     *     summary="Show Result Tested",
+     *   security={{"bearerAuth": {}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Token not provided",
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successfully",
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request"
+     *     )
+     * )
+     */
     public function showResult ($id)
     {
         try {
@@ -109,5 +209,33 @@ class TestController extends Controller
         } catch (ModelNotFoundException $ex) {
             return $this->responseError('test.message.result_not_found', [], 404);
         }
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/users/history-tests",
+     *     tags={""},
+     *     operationId="history",
+     *     summary="History Test",
+     *   security={{"bearerAuth": {}}},
+     *     @OA\Response(
+     *         response=401,
+     *         description="Token not provided",
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successfully",
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request"
+     *     )
+     * )
+     */
+    public function historyResults()
+    {
+        $data = $this->testRepository->groupByResults();
+
+        return $this->responseSuccessNoMess($data);
     }
 }

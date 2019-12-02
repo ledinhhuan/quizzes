@@ -11,4 +11,5 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface TestRepository extends RepositoryInterface
 {
+    public function groupByResults();
 }

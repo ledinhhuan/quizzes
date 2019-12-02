@@ -22,4 +22,10 @@ class Answer extends Model
     {
         return $this->correct == self::CORRECT;
     }
+
+    public static function boot()
+    {
+        parent::boot();
+        self::observe(new \App\Observers\UserActionObserver);
+    }
 }

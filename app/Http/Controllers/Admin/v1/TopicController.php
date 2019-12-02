@@ -12,7 +12,7 @@ class TopicController extends Controller
     /**
      * @OA\Get(
      *     path="/api/admin/topics",
-     *     tags={"viewTopics"},
+     *     tags={""},
      *     operationId="viewTopics",
      *     summary="List Topics Admin",
      *   security={{"bearerAuth": {}}},
@@ -53,7 +53,7 @@ class TopicController extends Controller
     /**
      * @OA\Post(
      *     path="/api/admin/topics",
-     *     tags={"doTopic"},
+     *     tags={""},
      *     operationId="doTopic",
      *     summary="Create Topics Admin",
      *   security={{"bearerAuth": {}}},

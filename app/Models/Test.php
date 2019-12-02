@@ -12,9 +12,20 @@ class Test extends Model
 
     protected $fillable = ['user_id', 'result', 'topic_id'];
 
+    public static function boot()
+    {
+        parent::boot();
+        self::observe(new \App\Observers\UserActionObserver);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function topic()
+    {
+        return $this->belongsTo(Topic::class);
     }
 
     public static function dataQuestions(Request $request, $questions, $test)

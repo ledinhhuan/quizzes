@@ -18,7 +18,7 @@
         "/api/admin/questions": {
             "post": {
                 "tags": [
-                    "storeQuestions"
+                    ""
                 ],
                 "summary": "Add Question Admin",
                 "operationId": "storeQuestions",
@@ -121,7 +121,7 @@
         "/api/admin/topics": {
             "get": {
                 "tags": [
-                    "viewTopics"
+                    ""
                 ],
                 "summary": "List Topics Admin",
                 "operationId": "viewTopics",
@@ -144,7 +144,7 @@
             },
             "post": {
                 "tags": [
-                    "doTopic"
+                    ""
                 ],
                 "summary": "Create Topics Admin",
                 "operationId": "doTopic",
@@ -176,10 +176,325 @@
                 ]
             }
         },
+        "/api/admin/list-action-users": {
+            "get": {
+                "tags": [
+                    ""
+                ],
+                "summary": "List Action of User",
+                "operationId": "listAction",
+                "responses": {
+                    "401": {
+                        "description": "Token not provided"
+                    },
+                    "200": {
+                        "description": "Successfully"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/test/{id}": {
+            "get": {
+                "tags": [
+                    ""
+                ],
+                "summary": "Show Exam Quizz",
+                "operationId": "resultTested",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Token not provided"
+                    },
+                    "200": {
+                        "description": "Successfully"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/tests": {
+            "post": {
+                "tags": [
+                    ""
+                ],
+                "summary": "Do Test Exam",
+                "operationId": "doTest",
+                "parameters": [
+                    {
+                        "name": "topic_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "questions[0]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "answers[0]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "questions[1]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "answers[1]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "questions[2]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "answers[2]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "questions[3]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "answers[3]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "questions[4]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "answers[4]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "questions[5]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "answers[5]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "questions[6]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "answers[6]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "questions[7]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "answers[7]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "questions[8]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "answers[8]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "questions[9]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "answers[9]",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    },
+                    "200": {
+                        "description": "Login Successfully"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/results/{id}": {
+            "get": {
+                "tags": [
+                    ""
+                ],
+                "summary": "Show Result Tested",
+                "operationId": "resultTested",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Token not provided"
+                    },
+                    "200": {
+                        "description": "Successfully"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/history-tests": {
+            "get": {
+                "tags": [
+                    ""
+                ],
+                "summary": "History Test",
+                "operationId": "history",
+                "responses": {
+                    "401": {
+                        "description": "Token not provided"
+                    },
+                    "200": {
+                        "description": "Successfully"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/users/signup": {
             "post": {
                 "tags": [
-                    "signup"
+                    ""
                 ],
                 "summary": "Signup User",
                 "operationId": "doSignup",
@@ -233,7 +548,7 @@
         "/api/users/login": {
             "post": {
                 "tags": [
-                    "login"
+                    ""
                 ],
                 "summary": "Login User",
                 "operationId": "doLogin",

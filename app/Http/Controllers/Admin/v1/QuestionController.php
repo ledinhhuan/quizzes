@@ -34,7 +34,7 @@ class QuestionController extends Controller
     /**
      * @OA\Post(
      *     path="/api/admin/questions",
-     *     tags={"storeQuestions"},
+     *     tags={""},
      *     operationId="storeQuestions",
      *     summary="Add Question Admin",
      *   security={{"bearerAuth": {}}},

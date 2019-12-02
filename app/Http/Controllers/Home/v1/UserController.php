@@ -31,7 +31,7 @@ class UserController extends Controller
     /**
      * @OA\Post(
      *     path="/api/users/signup",
-     *     tags={"signup"},
+     *     tags={""},
      *     operationId="doSignup",
      *     summary="Signup User",
      *     @OA\Parameter(
@@ -98,7 +98,7 @@ class UserController extends Controller
     /**
      * @OA\Post(
      *     path="/api/users/login",
-     *     tags={"login"},
+     *     tags={""},
      *     operationId="doLogin",
      *     summary="Login User",
      *     @OA\Parameter(

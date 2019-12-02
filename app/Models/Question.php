@@ -15,6 +15,12 @@ class Question extends Model
         'question_text', 'code_snippet', 'answer_explanation', 'more_info_link', 'topic_id'
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        self::observe(new \App\Observers\UserActionObserver);
+    }
+
     public function topic()
     {
         return $this->belongsTo(Topic::class);

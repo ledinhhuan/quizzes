@@ -81,4 +81,10 @@ class User extends Authenticatable implements JWTSubject
             $this->attributes['password'] = bcrypt($password);
         }
     }
+
+    public static function boot()
+    {
+        parent::boot();
+        self::observe(new \App\Observers\UserActionObserver);
+    }
 }

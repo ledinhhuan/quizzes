@@ -7,5 +7,7 @@ Route::group(['middleware' => ['token.user']], function () {
     Route::get('history-tests', 'TestController@historyResults');
     Route::get('tests/{id}', 'TestController@showQuizz');
     Route::get('results/{id}', 'TestController@showResult');
+    Route::get('rank-of-quizzes', 'TestController@rankOfQuizzes');
     Route::post('tests', 'TestController@doQuizz');
+    Route::delete('delete-result/{id}', 'TestController@deleteResult');
 });

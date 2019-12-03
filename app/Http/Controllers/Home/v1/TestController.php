@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home\v1;
 
+use App\Criteria\UserCriteria;
 use App\Http\Requests\Tests\CreateTestRequest;
 use App\Models\Question;
 use App\Models\Test;
@@ -15,6 +16,7 @@ use App\Services\ChartService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class TestController extends Controller
 {
@@ -204,7 +206,8 @@ class TestController extends Controller
 
             $partition = $this->chartService->partitionLevel($chart);
             $calculateChart = $this->chartService->calculateLevel($partition, $chart);
-            $data = ['chart' => $calculateChart, 'results' => $results];
+            $data = ['test' => $test, 'chart' => $calculateChart, 'results' => $results];
+
             return $this->responseSuccessNoMess($data);
         } catch (ModelNotFoundException $ex) {
             return $this->responseError('test.message.result_not_found', [], 404);
@@ -237,5 +240,62 @@ class TestController extends Controller
         $data = $this->testRepository->groupByResults();
 
         return $this->responseSuccessNoMess($data);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/users/delete-result/{id}",
+     *     tags={""},
+     *     operationId="deleteResult",
+     *     summary="Delete History Result",
+     *   security={{"bearerAuth": {}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Token not provided",
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successfully",
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request"
+     *     )
+     * )
+     */
+    public function deleteResult ($id)
+    {
+        \DB::beginTransaction();
+        try {
+            $this->testRepository->pushCriteria(UserCriteria::class);
+            $test = $this->testRepository->find($id);
+            $test->delete();
+            \DB::commit();
+            return $this->responseSuccess('test.message.delete_successfully', [], 200);
+        } catch (ModelNotFoundException $e) {
+            \DB::rollback();
+            \Log::error('Delete Result History Error: ' . $e->getMessage());
+            return $this->responseError('test.message.delete_error');
+        }
+    }
+
+    public function rankOfQuizzes ()
+    {
+        $rank = Test::query()
+                ->selectRaw('AVG(result) as average, users.name')
+            ->leftJoin('users', 'users.id', '=', 'tests.user_id')
+            ->groupBy('user_id')
+            ->orderBy('average', 'DESC')
+            ->take(10)->get();
+
+        return $this->responseSuccessNoMess(['rank' => $rank]);
     }
 }

@@ -26,7 +26,7 @@ class UserActionObserver
     }
     public function deleting($model)
     {
-        if (Auth::check()) {
+        if (\Auth::check()) {
             UserAction::create([
                 'user_id'      => \Auth::user()->id,
                 'action'       => 'deleted',

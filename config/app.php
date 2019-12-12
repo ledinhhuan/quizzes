@@ -178,6 +178,7 @@ return [
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         L5Swagger\L5SwaggerServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -229,7 +230,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
-        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

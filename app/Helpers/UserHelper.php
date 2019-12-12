@@ -2,8 +2,6 @@
 
 namespace App\Helpers;
 
-use Tymon\JWTAuth\JWTAuth;
-
 class UserHelper
 {
     private $cacheUser = null;
@@ -22,7 +20,7 @@ class UserHelper
     {
         if ($this->cacheUser === null) {
             try {
-                $this->cacheUser = JWTAuth::parseToken()->authenticate();
+                $this->cacheUser = \JWTAuth::parseToken()->authenticate();
             } catch (\Exception $e) {
                 $this->cacheUser = false;
             }

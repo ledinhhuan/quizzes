@@ -287,6 +287,27 @@ class TestController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/users/rank-of-quizzes",
+     *     tags={""},
+     *     operationId="rank",
+     *     summary="Rank Of Quizzes",
+     *   security={{"bearerAuth": {}}},
+     *     @OA\Response(
+     *         response=401,
+     *         description="Token not provided",
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successfully",
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request"
+     *     )
+     * )
+     */
     public function rankOfQuizzes ()
     {
         $rank = Test::query()
